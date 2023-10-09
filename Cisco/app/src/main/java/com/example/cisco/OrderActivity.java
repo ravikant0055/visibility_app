@@ -3,18 +3,36 @@ package com.example.cisco;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderActivity extends AppCompatActivity {
 
+    //Recyclerview
+    RecyclerView dataentry;
+    OrderdataAdapter adapter;
 
+    //drop down menu
+    String[] item = {"FY24","FY25","FY26","FY27"};
+    AutoCompleteTextView autoCompleteTextView;
+    ArrayAdapter<String> adapterItems;
+
+    //navigation drawer
     DrawerLayout drawerLayout;
     ImageButton menu;
     LinearLayout goal_attainment,order, payment,cash,export,logout;
@@ -22,6 +40,11 @@ public class OrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
+        //RecyclerView
+        dataentry = findViewById(R.id.dataentry);
+        setRecyclerView();
+
 
 
         drawerLayout = findViewById(R.id.drawerlayout);
@@ -75,8 +98,42 @@ public class OrderActivity extends AppCompatActivity {
                 Toast.makeText(OrderActivity.this,"Logout",Toast.LENGTH_SHORT).show();
             }
         });
+
+
+        //drop down menu
+        autoCompleteTextView=findViewById(R.id.auto_complete_text2);
+        adapterItems = new ArrayAdapter<String>(this,R.layout.list_item,item);
+        autoCompleteTextView.setAdapter(adapterItems);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String item = adapterView.getItemAtPosition(i).toString();
+                Toast.makeText(OrderActivity.this,"Item: "+ item,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+
+    //recyclerview
+    private void setRecyclerView() {
+        dataentry.setHasFixedSize(true);
+        dataentry.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new OrderdataAdapter(this,getList());
+        dataentry.setAdapter(adapter);
+    }
+
+    private List<OrderdataModel> getList(){
+        List<OrderdataModel> order_list = new ArrayList<>();
+        order_list.add(new OrderdataModel("PRD & SVC","1.15B","127.632.298.14"));
+        order_list.add(new OrderdataModel("PRD & SVC","1.15B","127.632.298.14"));
+        order_list.add(new OrderdataModel("PRD & SVC","1.15B","127.632.298.14"));
+        order_list.add(new OrderdataModel("PRD & SVC","1.15B","127.632.298.14"));
+        order_list.add(new OrderdataModel("PRD & SVC","1.15B","127.632.298.14"));
+        return order_list;
+    }
+
+
+    //navigation
     public static void openDrawer(DrawerLayout drawerLayout){
         drawerLayout.openDrawer(GravityCompat.START);
     }

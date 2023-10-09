@@ -10,4 +10,6 @@
     <color name="cisco_blue">#00A5DE</color>
     <color name="dalblue">#0790AE</color>
     <color name="orange">#DB631F</color>
+    <color name="grey">#C9C9C9</color>
+    <color name="grey2">#E1E1E1</color>
 </resources>
