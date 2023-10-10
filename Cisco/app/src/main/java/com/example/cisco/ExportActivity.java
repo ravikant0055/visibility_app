@@ -10,14 +10,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
 
 public class ExportActivity extends AppCompatActivity {
 
+
     DrawerLayout drawerLayout;
     ImageButton menu;
-
     LinearLayout goal_attainment,order, payment,cash,export,logout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,9 @@ public class ExportActivity extends AppCompatActivity {
                 Toast.makeText(ExportActivity.this,"Logout",Toast.LENGTH_SHORT).show();
             }
         });
+
     }
+
 
     public static void openDrawer(DrawerLayout drawerLayout){
         drawerLayout.openDrawer(GravityCompat.START);

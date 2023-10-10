@@ -13,8 +13,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
+
 public class PaymentActivity extends AppCompatActivity {
 
+    //Api data
+    TextView paymentdate, totalpayment;
+    String url;
+
+    //navigation
     DrawerLayout drawerLayout;
     ImageButton menu;
     LinearLayout goal_attainment,order, payment,cash,export,logout;
@@ -24,6 +38,35 @@ public class PaymentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment);
 
 
+        //api data fetch
+        paymentdate = findViewById(R.id.paymentdate);
+        totalpayment = findViewById(R.id.totalpayment);
+        url = "https://worldtimeapi.org/api/timezone/Asia/Kolkata";
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+               try {
+                   String datetime = response.getString("datetime");
+                   String date = datetime.split("T")[0];
+
+                   String totalpay = response.getString("raw_offset");
+                   paymentdate.setText(date);
+                   totalpayment.setText(totalpay);
+               } catch (Exception e) {
+               }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(request);
+//        Volley.newRequestQueue(this).add(request);
+
+        //navigation
         drawerLayout = findViewById(R.id.drawerlayout);
         menu = findViewById(R.id.menu);
         goal_attainment = findViewById(R.id.goalattainment);
