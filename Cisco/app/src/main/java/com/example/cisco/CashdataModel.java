@@ -1,11 +1,11 @@
 package com.example.cisco;
 
-public class OrderdataModel {
+public class CashdataModel {
     String category;
     String goal;
     String booking;
 
-    public OrderdataModel(String category, String goal, String booking) {
+    public CashdataModel(String category, String goal, String booking) {
         this.category = category;
         this.goal = goal;
         this.booking = booking;

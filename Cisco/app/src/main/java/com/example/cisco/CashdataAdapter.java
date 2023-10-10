@@ -5,22 +5,19 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class OrderdataAdapter extends RecyclerView.Adapter<OrderdataAdapter.ViewHolder> {
+public class CashdataAdapter extends RecyclerView.Adapter<CashdataAdapter.ViewHolder> {
 
     Context context;
-    List<OrderdataModel> order_list;
+    List<CashdataModel> order_list;
 
-    public OrderdataAdapter(Context context,List<OrderdataModel> order_list) {
+    public CashdataAdapter(Context context, List<CashdataModel> order_list) {
         this.context = context;
         this.order_list = order_list;
     }
@@ -35,12 +32,12 @@ public class OrderdataAdapter extends RecyclerView.Adapter<OrderdataAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (order_list != null && order_list.size() > 0) {
-            OrderdataModel model = order_list.get(position);
+            CashdataModel model = order_list.get(position);
             holder.goaldata.setText(model.getGoal());
             holder.categorydata.setText(model.getCategory());
             holder.bookingdata.setText(model.getBooking());
         } else {
-            return;
+            return ;
         }
     }
 
@@ -51,7 +48,7 @@ public class OrderdataAdapter extends RecyclerView.Adapter<OrderdataAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView categorydata,goaldata,bookingdata;
-        LinearLayout rowid;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             categorydata = itemView.findViewById(R.id.categorydata);

@@ -23,15 +23,6 @@ import java.util.List;
 
 public class OrderActivity extends AppCompatActivity {
 
-    //Recyclerview
-    RecyclerView dataentry;
-    OrderdataAdapter adapter;
-
-    //drop down menu
-    String[] item = {"FY24","FY25","FY26","FY27"};
-    AutoCompleteTextView autoCompleteTextView;
-    ArrayAdapter<String> adapterItems;
-
     //navigation drawer
     DrawerLayout drawerLayout;
     ImageButton menu;
@@ -40,11 +31,6 @@ public class OrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-
-        //RecyclerView
-        dataentry = findViewById(R.id.dataentry);
-        setRecyclerView();
-
 
 
         drawerLayout = findViewById(R.id.drawerlayout);
@@ -100,37 +86,10 @@ public class OrderActivity extends AppCompatActivity {
         });
 
 
-        //drop down menu
-        autoCompleteTextView=findViewById(R.id.auto_complete_text2);
-        adapterItems = new ArrayAdapter<String>(this,R.layout.list_item,item);
-        autoCompleteTextView.setAdapter(adapterItems);
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String item = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(OrderActivity.this,"Item: "+ item,Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
 
-    //recyclerview
-    private void setRecyclerView() {
-        dataentry.setHasFixedSize(true);
-        dataentry.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new OrderdataAdapter(this,getList());
-        dataentry.setAdapter(adapter);
-    }
-
-    private List<OrderdataModel> getList(){
-        List<OrderdataModel> order_list = new ArrayList<>();
-        order_list.add(new OrderdataModel("PRD & SVC","1.15B","127.632.298.14"));
-        order_list.add(new OrderdataModel("PRD & SVC","1.15B","127.632.298.14"));
-        order_list.add(new OrderdataModel("PRD & SVC","1.15B","127.632.298.14"));
-        order_list.add(new OrderdataModel("PRD & SVC","1.15B","127.632.298.14"));
-        order_list.add(new OrderdataModel("PRD & SVC","1.15B","127.632.298.14"));
-        return order_list;
-    }
 
 
     //navigation
