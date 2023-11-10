@@ -1,77 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="10dp"
+    android:layout_margin="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
 
-    <TableRow
-        android:id="@+id/rowid"
-        >
-        <TextView
-            android:id="@+id/categorydata"
-            android:textSize="16dp"
-            android:fontFamily="@font/gabarito"
-            android:padding="10dp"
-            android:gravity="center"
-            android:layout_column="1"
-            />
-        <TextView
-            android:id="@+id/goaldata"
-            android:textSize="16dp"
-            android:fontFamily="@font/gabarito"
-            android:gravity="center"
-            android:padding="10dp"
-            android:layout_column="1"
-            />
-        <TextView
-            android:id="@+id/bookingdata"
-            android:textSize="16dp"
-            android:fontFamily="@font/gabarito"
-            android:gravity="center"
-            android:padding="10dp"
-            android:layout_column="1"
-            />
-        <TextView
-            android:id="@+id/noncomm"
-            android:textSize="16dp"
-            android:fontFamily="@font/gabarito"
-            android:gravity="center"
-            android:padding="10dp"
-            android:layout_column="1"
-            />
-        <TextView
-            android:id="@+id/backlog"
-            android:textSize="16dp"
-            android:fontFamily="@font/gabarito"
-            android:gravity="center"
-            android:padding="10dp"
-            android:layout_column="1"
-            />
-        <TextView
-            android:id="@+id/revoriginal"
-            android:textSize="16dp"
-            android:fontFamily="@font/gabarito"
-            android:gravity="center"
-            android:padding="10dp"
-            android:layout_column="1"
-            />
-        <TextView
-            android:id="@+id/revmultiplied"
-            android:textSize="16dp"
-            android:fontFamily="@font/gabarito"
-            android:gravity="center"
-            android:padding="10dp"
-            android:layout_column="1"
-            />
-        <TextView
-            android:id="@+id/revattainment"
-            android:textSize="16dp"
-            android:fontFamily="@font/gabarito"
-            android:gravity="center"
-            android:padding="10dp"
-            android:layout_column="1"
-            />
-    </TableRow>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C9C9C9"
+        android:orientation="vertical">
 
-</TableLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/gabarito"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"
+            android:padding="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:id="@+id/categorydata"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gabarito"
+                    android:padding="10dp"
+                    android:text="Goal(USD)"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gabarito"
+                    android:padding="10dp"
+                    android:text="Booking"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gabarito"
+                    android:padding="10dp"
+                    android:text="Non-Comm Bookings"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gabarito"
+                    android:padding="10dp"
+                    android:text="Backlog"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gabarito"
+                    android:padding="10dp"
+                    android:text="Revenue(Original)"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gabarito"
+                    android:padding="10dp"
+                    android:text="Revenue(Multiplied)"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gabarito"
+                    android:padding="10dp"
+                    android:text="Revenue Attainment"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                >
+                <TextView
+                    android:id="@+id/goaldata"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/gabarito"
+                    android:padding="10dp"
+                    android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/bookingdata"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/gabarito"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_weight="0.5"
+                    />
+                <TextView
+                    android:id="@+id/noncomm"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/gabarito"
+                    android:padding="10dp"
+                    android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/backlog"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/gabarito"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_weight="0.5"
+                    />
+                <TextView
+                    android:id="@+id/revoriginal"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/gabarito"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_weight="0.5"
+                    />
+                <TextView
+                    android:id="@+id/revmultiplied"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/gabarito"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_weight="0.5"
+                    />
+                <TextView
+                    android:id="@+id/revattainment"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/gabarito"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_weight="0.5"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

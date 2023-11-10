@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CashdataAdapter extends RecyclerView.Adapter<CashdataAdapter.ViewHolder> {
@@ -49,6 +50,13 @@ public class CashdataAdapter extends RecyclerView.Adapter<CashdataAdapter.ViewHo
     @Override
     public int getItemCount() {
         return order_list.size();
+    }
+
+    public void filterList(ArrayList<CashdataModel> filteredList) {
+        order_list.clear();
+        notifyDataSetChanged();
+        order_list.addAll(filteredList);
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
