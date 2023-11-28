@@ -72,7 +72,8 @@ public class ExportActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ExportActivity.this,"Logout",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ExportActivity.this,LoginActivity.class);
+                startActivity(intent);
             }
         });
 

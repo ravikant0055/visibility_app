@@ -28,16 +28,18 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+
     //drop down menu
     String[] item = {"2024 CS538","2024 CS539","2024 CS540","2024 CS541"};
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> adapterItems;
 
+
     //navigation drawer
     DrawerLayout drawerLayout;
     ImageButton menu;
-
     LinearLayout goal_attainment,order, payment,cash,export,logout;
+
 
     //graph
     BarChart stackedChart;
@@ -104,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this,"Logout",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
             }
         });
 

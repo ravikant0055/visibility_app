@@ -7,6 +7,7 @@
     tools:context=".LoginActivity"
     android:background="@color/cisco_blue"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
@@ -39,7 +40,7 @@
             android:drawableTint="@color/cisco_blue"
             android:ems="10"
             android:fontFamily="@font/gabarito"
-            android:hint="Email or Username"
+            android:hint="User Id"
             android:inputType="textEmailAddress"
             android:paddingLeft="10dp"
             android:paddingTop="15dp"
@@ -78,21 +79,31 @@
             android:textColor="@color/cisco_blue"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/errormsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Invalid UserId or Password"
+            android:textColor="#FF0000"
+            android:visibility="invisible"
+            />
+
         <Button
             android:id="@+id/loginbtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
+            android:background="@drawable/button_corner"
             android:fontFamily="@font/gabarito"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            android:textColor="@color/white"
             android:text="Login"
-            android:background="@drawable/button_corner"
-            android:textStyle="bold"
-            />
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
 <!--        <LinearLayout-->
 <!--            android:layout_width="wrap_content"-->
@@ -119,4 +130,5 @@
 <!--        </LinearLayout>-->
 
     </LinearLayout>
+
 </LinearLayout>

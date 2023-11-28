@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -22,7 +23,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,19 +30,21 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
+import java.sql.CallableStatement;
 
 public class CashActivity extends AppCompatActivity {
 
-
-    ProgressBar progressBar;
+    //Progress bar
+    CustomProgressbar dialog;
 
     //Recyclerview
     RecyclerView dataentry;
     CashdataAdapter adapter;
-    LinearLayout tablelayout, categorylayout;
-    TextView noData;
 
+    LinearLayout tablelayout,categorylayout;
+    TextView noData;
     ArrayList<String> categories=new ArrayList<String>();
 
 
@@ -69,13 +71,21 @@ public class CashActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ImageButton menu;
     LinearLayout goal_attainment,order, payment,cash,export,logout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cash);
 
-        progressBar=findViewById(R.id.progressIndicator);
-        progressBar.setVisibility(View.INVISIBLE);
+        //recyclerview
+        adapter = new CashdataAdapter(this,order_list);
+
+        //progressbar
+        dialog = new CustomProgressbar(CashActivity.this);
+//        if (dialog.getWindow()!=null){
+//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+//        }
 
         //database
         droplayout=findViewById(R.id.droplayout);
@@ -95,8 +105,6 @@ public class CashActivity extends AppCompatActivity {
                 hideKeyboard(view);
             }
         });
-
-
 
         //RecyclerView
         dataentry = findViewById(R.id.dataentry);
@@ -152,7 +160,8 @@ public class CashActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(CashActivity.this,"Logout",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CashActivity.this,LoginActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -172,8 +181,8 @@ public class CashActivity extends AppCompatActivity {
 
         //drop down menu for Category
         categorydropview=findViewById(R.id.auto_complete_text3);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,categories);
-        categorydropview.setAdapter(adapter);
+        adapterItems = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,categories);
+        categorydropview.setAdapter(adapterItems);
         categorydropview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -182,20 +191,6 @@ public class CashActivity extends AppCompatActivity {
                 filter(CAT);
             }
         });
-//        categorydropview.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                Log.d("FAL", "onItemSelected: ");
-//                String ff = adapterView.getItemAtPosition(i).toString() ;
-//                filter(ff);
-//                Log.d("FAL", "onItemSelected: "+ff);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
     }
 
     //recyclerview
@@ -213,9 +208,8 @@ public class CashActivity extends AppCompatActivity {
         dataentry.setHasFixedSize(true);
         dataentry.setLayoutManager(new LinearLayoutManager(this));
         Log.d("TAG", "setRecyclerView: "+order_list);
-        dataentry.setAdapter(new CashdataAdapter(this,order_list));
+        dataentry.setAdapter(adapter);
     }
-
 
     //Db connection
     private void getList(){
@@ -225,20 +219,23 @@ public class CashActivity extends AppCompatActivity {
 
     //DB connection with Aysnc Task
     private class UploadData extends AsyncTask<Void, Void, ResultSet> {
-
         @Override
         protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);
+            dialog.show();
             tablelayout.setVisibility(View.INVISIBLE);
             categorylayout.setVisibility(View.INVISIBLE);
+            noData.setVisibility(View.GONE);
         }
         @Override
         protected ResultSet doInBackground(Void... voids) {
             connecton = buttonConnectToOracleDB();
             UserId = editText.getText().toString();
+
             try {
                 if (connecton!=null) {
                     Statement statement = connecton.createStatement();
+                    CallableStatement stmt;
+
                     Log.d("TAG", "doInBackground: ");
                     return statement.executeQuery("SELECT                         xsgq.srp_goal_header_id      AS goalid,\n" +
                             "                               xsgq.quota_id                AS allocationid,\n" +
@@ -1075,16 +1072,18 @@ public class CashActivity extends AppCompatActivity {
                 }
                 return null;
             }
+
             catch (Exception e){
-                Log.d("TAG", "expe: ");
+                Log.e("Error", e.getMessage());
                 return null;
             }
         }
         @Override
         protected void onPostExecute(ResultSet resultSet) {
-            Log.d("TAG", "orderlist: ");
+            Log.d("TAG", "orderlist1: "+order_list);
             try{
                 while (resultSet.next()) {
+                    Log.d("TAG", "orderlist2: "+order_list);
                     String category = resultSet.getString(6 );
                     String goal = resultSet.getString(7 );
                     String booking = resultSet.getString(12 );
@@ -1096,29 +1095,31 @@ public class CashActivity extends AppCompatActivity {
                     categories.add(category);
                     System.out.println(category);
                     order_list.add(new CashdataModel(category, goal,booking,noncomm,backlog,revoriginal,revmultiplied,revattainment));
-                }}
+                }
+            }
             catch (Exception e){
-
+                Log.e("Error", e.getMessage());
             }
             setRecyclerView(order_list);
+            Log.d("TAG", "orderlist3: "+order_list);
 //          super.onPostExecute(resultSet);
-            progressBar.setVisibility(View.INVISIBLE);
+            dialog.cancel();
         }
     }
 
     //category dropdown
     private void filter(String text){
-        System.out.println("filetrepart");
+        System.out.println("enter in filter selection");
         ArrayList<CashdataModel> filteredList = new ArrayList();
+        Log.d("TAG", "text: "+text);
         for(CashdataModel item : order_list){
-            if(item.getCategory().toLowerCase().contains(text.toLowerCase())){
+            if(item.getCategory().toLowerCase().equals(text.toLowerCase())){
                 filteredList.add(item);
+                Log.d("TAG", "filter: "+item);
             }
         }
-        CashdataAdapter adapter = new CashdataAdapter(this,order_list);
         adapter.filterList(filteredList);
     }
-
 
     //database
     public Connection buttonConnectToOracleDB() {
@@ -1133,9 +1134,7 @@ public class CashActivity extends AppCompatActivity {
             Log.e("Error", e.getMessage());
         }
         return connecton;
-
     }
-
 
     //navigation
     public static void openDrawer(DrawerLayout drawerLayout){
@@ -1152,7 +1151,6 @@ public class CashActivity extends AppCompatActivity {
         activity.startActivity(intent);
         activity.finish();
     }
-
     @Override
     protected void onPause() {
         super.onPause();

@@ -81,7 +81,8 @@ public class OrderActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(OrderActivity.this,"Logout",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(OrderActivity.this,LoginActivity.class);
+                startActivity(intent);
             }
         });
 

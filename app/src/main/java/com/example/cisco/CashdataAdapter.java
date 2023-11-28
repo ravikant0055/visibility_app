@@ -2,6 +2,7 @@ package com.example.cisco;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,10 +54,12 @@ public class CashdataAdapter extends RecyclerView.Adapter<CashdataAdapter.ViewHo
     }
 
     public void filterList(ArrayList<CashdataModel> filteredList) {
-        order_list.clear();
+        List res = new ArrayList();
+        res.addAll(filteredList);
+        Log.d("TAG", "res: "+res);
+        order_list=res;
         notifyDataSetChanged();
-        order_list.addAll(filteredList);
-        notifyDataSetChanged();
+        Log.d("TAG", "orderlist: "+order_list);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

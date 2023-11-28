@@ -33,8 +33,6 @@ public class PaymentActivity extends AppCompatActivity {
     public String UserId;
     private TextView paymentdate,totalpayment;
 
-
-
     //navigation
     DrawerLayout drawerLayout;
     ImageButton menu;
@@ -43,7 +41,6 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-
 
         //database
         editText=findViewById(R.id.userid);
@@ -152,7 +149,8 @@ public class PaymentActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(PaymentActivity.this,"Logout",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PaymentActivity.this,LoginActivity.class);
+                startActivity(intent);
             }
         });
     }
