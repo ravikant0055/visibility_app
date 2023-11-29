@@ -49,6 +49,58 @@ public class PaymentActivity extends AppCompatActivity {
         btn = findViewById(R.id.useridbtn);
         StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(threadPolicy);
+
+
+//        Intent intent = getIntent();
+//        UserId = intent.getExtras().getString("id1");
+//        Log.d("TAG", "payment id: "+UserId);
+//
+//
+//
+//        connecton = buttonConnectToOracleDB();
+//        try {
+//            if (connecton != null) {
+//                Statement statement = connecton.createStatement();
+//                ResultSet resultSet = statement.executeQuery("SELECT\n" +
+//                        "pay_date,\n" +
+//                        "pay_amount\n" +
+//                        "FROM (\n" +
+//                        "SELECT SUM(TO_NUMBER(payment_amount)) AS pay_amount\n" +
+//                        "FROM (\n" +
+//                        "SELECT MAX(payrun_id) AS max_payrun_id\n" +
+//                        "FROM e2e_payment_summary subquery\n" +
+//                        "WHERE employee_id = '"+UserId+"'\n" +
+//                        "AND status = 'U'\n" +
+//                        "AND fiscal_year IN (to_char(sysdate, 'YYYY')+1, to_char(sysdate, 'YYYY'), to_char(sysdate, 'YYYY')+1, to_char(sysdate, 'YYYY')+1)\n" +
+//                        ") subquery\n" +
+//                        "JOIN e2e_payment_summary a\n" +
+//                        "ON subquery.max_payrun_id = a.payrun_id\n" +
+//                        "WHERE a.employee_id = '"+UserId+"'\n" +
+//                        "AND a.status = 'U'\n" +
+//                        ") q1\n" +
+//                        "CROSS JOIN (\n" +
+//                        "SELECT DISTINCT payment_date AS pay_date\n" +
+//                        "FROM e2e_calc_payment_detail\n" +
+//                        "WHERE employee_id = '"+UserId+"'\n" +
+//                        "AND status = 'U'\n" +
+//                        "AND fiscal_year IN (to_char(sysdate, 'YYYY')+1, to_char(sysdate, 'YYYY'), to_char(sysdate, 'YYYY')+1, to_char(sysdate, 'YYYY')+1)\n" +
+//                        "AND ROWNUM = 1\n" +
+//                        ") q2");
+//                while (resultSet.next()) {
+//                    String datetime = resultSet.getString(1);
+//                    String date = datetime.split(" ")[0];
+//                    paymentdate.setText(date);
+//                    totalpayment.setText(resultSet.getString(2));
+//                }
+//            }
+//        } catch (Exception e) {
+//            Log.e("Error", e.getMessage());
+//        }
+
+
+
+
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,6 +151,9 @@ public class PaymentActivity extends AppCompatActivity {
                 inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
             }
         });
+
+
+
 
 
         //navigation
@@ -176,21 +231,31 @@ public class PaymentActivity extends AppCompatActivity {
         closeDrawer(drawerLayout);
     }
 
-
     //database
     public Connection buttonConnectToOracleDB() {
         try {
             Class.forName(DRIVER);
             this.connecton = DriverManager.getConnection("jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=dbs-pdv-vm-2020.cisco.com)(PORT=1576))(CONNECT_DATA=(SERVICE_NAME=DV1G2C_SRVC_OTH.cisco.com)(Server=Dedicated)))", "APPS", "B1UE2UTH");
 
-            Toast.makeText(this, "Loading ...", Toast.LENGTH_LONG).show();
+          //  Toast.makeText(this, "Loading ...", Toast.LENGTH_LONG).show();
 
-            Toast.makeText(this, "CONNECTED", Toast.LENGTH_LONG).show();
+          //  Toast.makeText(this, "CONNECTED", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             paymentdate.setText(e.toString());
         }
 
         return connecton;
     }
+
+
+
+//    private void hideKeyboard(View v) {
+//                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+//                inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
+//            }
+//
+
+
+
 
 }

@@ -53,6 +53,8 @@ public class CashActivity extends AppCompatActivity {
     private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
     private Connection connecton;
     private EditText editText;
+
+    public String searchId;
     public String UserId;
     ResultSet resultSet;
 
@@ -78,14 +80,12 @@ public class CashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cash);
 
+
+
         //recyclerview
         adapter = new CashdataAdapter(this,order_list);
-
         //progressbar
         dialog = new CustomProgressbar(CashActivity.this);
-//        if (dialog.getWindow()!=null){
-//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
-//        }
 
         //database
         droplayout=findViewById(R.id.droplayout);
@@ -111,7 +111,6 @@ public class CashActivity extends AppCompatActivity {
         tablelayout = findViewById(R.id.tableid);
         categorylayout=findViewById(R.id.categorylayout);
         noData = findViewById(R.id.no_data);
-
         //navigation
         drawerLayout = findViewById(R.id.drawerlayout);
         menu = findViewById(R.id.menu);
@@ -174,7 +173,7 @@ public class CashActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 FY = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(CashActivity.this,"Loading ...",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(CashActivity.this,"Loading ...",Toast.LENGTH_SHORT).show();
                 getList();
             }
         });
@@ -230,6 +229,10 @@ public class CashActivity extends AppCompatActivity {
         protected ResultSet doInBackground(Void... voids) {
             connecton = buttonConnectToOracleDB();
             UserId = editText.getText().toString();
+
+//            Intent intent = getIntent();
+//            UserId = intent.getExtras().getString("id2");      //not in use now
+//            Log.d("TAG", "UserID: "+UserId);
 
             try {
                 if (connecton!=null) {
@@ -1072,7 +1075,6 @@ public class CashActivity extends AppCompatActivity {
                 }
                 return null;
             }
-
             catch (Exception e){
                 Log.e("Error", e.getMessage());
                 return null;

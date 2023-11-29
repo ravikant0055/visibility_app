@@ -37,6 +37,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 userid = user.getText().toString();
                 password = pass.getText().toString();
+
+                Intent i = new Intent(LoginActivity.this,CashActivity.class);
+                i.putExtra("id2", userid);
+                startActivity(i);
+
+                Intent ii = new Intent(LoginActivity.this,PaymentActivity.class);
+                ii.putExtra("id1", userid);
+                startActivity(ii);
+
                 if (userid.equals("100010") && password.equals("cisco@123")){
                     validatemsg.setVisibility(View.INVISIBLE);
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
